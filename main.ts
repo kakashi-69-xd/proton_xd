@@ -1,4 +1,4 @@
-import { instantiate,dev,build,start } from "./lib/rs_lib.generated.js";
+import { instantiate,dev,build,start,clean } from "./lib/rs_lib.generated.js";
 
 await instantiate();
 
@@ -13,6 +13,7 @@ switch(Deno.args[0]) {
   case "start":case "s":
     start();
   break;
-  default:
+  case "clean":case "c":
+    clean();
   break;
 }

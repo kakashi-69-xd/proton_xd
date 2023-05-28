@@ -1,0 +1,21 @@
+{
+  "name": "xd",
+  "framework": "vanilla",
+  "ext": "ts",
+  "scripts": {
+    "frontend": "",
+    "backend": "",
+    "build": ""
+  },
+  "permissions": {
+    "read":  ["./","./public/"],
+    "write": ["./"],
+    "net": true,
+    "run": true,
+    "env": false,
+    "sys": false,
+    "hrtime": false,
+    "ffi": true,
+    "unstable": true 
+  }
+}

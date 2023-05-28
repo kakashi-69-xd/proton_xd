@@ -1,5 +1,5 @@
 {
   "tasks": {
-    "dev": "deno run -A xd.ts"
+    "dev": "deno run -A main.ts dev"
   }
 }
