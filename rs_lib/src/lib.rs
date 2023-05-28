@@ -1,5 +1,3 @@
-pub mod types;
-
 use wasm_bindgen::prelude::wasm_bindgen;
 
 use std::{
@@ -7,37 +5,33 @@ use std::{
     current_dir,
     set_current_dir
   },
-  process::Command
+  process::Command, fs
 };
 
 
 #[wasm_bindgen]
 pub fn dev() {
-  if !current_dir().unwrap().to_str().unwrap().ends_with("proton-xd") {
-    set_current_dir("proton-xd").unwrap();
-  }
-
-  let dev=Command::new("deno").args(["run"]);
+  deno("run",vec![],String::from("proton-xd/src/main.ts"));
   
 }
 
 #[wasm_bindgen]
 pub fn build() {
-  
-
+  deno("compile",vec![],String::from("proton-xd/src/main.ts"))
 }
 
 #[wasm_bindgen]
 pub fn start() {
   
-
 }
 
 #[wasm_bindgen]
 pub fn clean() {
-
-
-
+  
    
 }
 
+
+fn deno(action: &str,permissions: Vec<String>,main: String) {
+  Command::new("deno").arg(action).args(permissions).arg(main).spawn().unwrap();
+}
