@@ -1,6 +1,6 @@
 import { instantiate,dev,build,start,clean } from "./lib/rs_lib.generated.js";
 
-const xd=await instantiate();
+await instantiate();
 
 
 switch(Deno.args[0]) {

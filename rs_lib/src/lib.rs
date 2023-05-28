@@ -1,12 +1,5 @@
 use wasm_bindgen::prelude::wasm_bindgen;
-
-use std::{
-  env::{
-    current_dir,
-    set_current_dir
-  },
-  process::Command, fs
-};
+use std::process::Command;
 
 
 #[wasm_bindgen]
