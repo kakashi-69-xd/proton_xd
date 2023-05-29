@@ -1,11 +1,16 @@
 import { instantiate,dev,build,start,clean } from "./lib/rs_lib.generated.js";
+import { getPermissions,config } from "./proton-xd.config.ts";
 
 await instantiate();
+const permissions: string[]=(await getPermissions(await config()));
+
+
+
 
 
 switch(Deno.args[0]) {
   case "dev":case "d":
-    dev();
+    dev(permissions);
   break;
   case "build":case "b":
     build();
