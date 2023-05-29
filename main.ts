@@ -13,7 +13,7 @@ switch(Deno.args[0]) {
     dev(permissions);
   break;
   case "build":case "b":
-    build();
+    build(permissions);
   break;
   case "start":case "s":
     start();
