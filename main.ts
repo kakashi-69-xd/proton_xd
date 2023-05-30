@@ -4,7 +4,7 @@ import { getPermissions,config } from "./proton-xd.config.ts";
 await instantiate();
 const permissions: string[]=(await getPermissions(await config()));
 
-
+console.log(permissions);
 
 
 

@@ -4,16 +4,14 @@ use wasm_bindgen::{
 };
 
 
-
 #[wasm_bindgen]
 pub fn dev(perms: JsValue) {
-  deno("run",perms,String::from("proton-xd/src/main.ts"),false);
-
+  deno("run",perms,"proton-xd/src/main.ts",false);
 }
 
 #[wasm_bindgen]
 pub fn build(perms: JsValue) {
-  deno("compile",perms,String::from("proton-xd/src/main.ts"),true)
+  deno("compile",perms,"proton-xd/src/main.ts",true)
 }
 
 #[wasm_bindgen]
@@ -27,14 +25,18 @@ pub fn clean() {
 }
 
 
-fn deno(action: &str,permissions: JsValue,main: String,strict: bool) {
+fn deno(action: &str,permissions: JsValue,main: &str,strict: bool) {
   let mut perms: Vec<String>=permissions.into_serde().unwrap();
   if strict {perms.push(String::from("--no-prompt"))}
 
-  std::process::Command::new("deno")
+  wasm_bus_process::process::Command::new("deno")
   .arg(action)
   .args(perms)
   .arg(main)
   .spawn()
+  .unwrap()
+  .wait()
   .unwrap();
+
+
 }
