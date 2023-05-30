@@ -25,20 +25,24 @@ switch(Deno.args[0]) {
 
 
 function dev() {
-  const cmd=new Deno.Command("deno",{
-    args: ["run",...permissions,"proton-xd/src/main.ts"]
+  cmd("deno",["run",...permissions,"proton-xd/src/main.ts"]);
+}
+
+function start() {
+  
+}
+
+function clean() {
+  Deno.removeSync("build");
+}
+
+function cmd(path: string,args: string[]) {
+  const cmd=new Deno.Command(path,{
+    args: args
   }).outputSync();
   
   if(cmd.stderr)
   Deno.stderr.writeSync(cmd.stderr);
   else
   Deno.stdout.writeSync(cmd.stdout);
-}
-
-function start() {
-  //todo;
-}
-
-function clean() {
-  Deno.removeSync("build");
 }
