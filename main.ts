@@ -40,5 +40,5 @@ function start() {
 }
 
 function clean() {
-  //todo;
+  Deno.removeSync("build");
 }
