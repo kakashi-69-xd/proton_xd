@@ -25,6 +25,7 @@ interface Scripts {
   build: string;
 }
 
+
 export async function getPermissions(config: Config): Promise<string[]> {
   type Flags="env"|"sys"|"net"|"ffi"|"run"|"hrtime"|"read"|"write"|"unstable";
   const keys: Flags[]=["env","sys","net","ffi","run","hrtime","read","write","unstable"];
@@ -49,4 +50,4 @@ export async function getPermissions(config: Config): Promise<string[]> {
 }
 
 
-export const config=async ()=> await JSON.parse(Deno.readTextFileSync("./proton-xd.config.json")) satisfies Config;
+export const config=async (): Promise<Config>=> await JSON.parse(Deno.readTextFileSync("./proton-xd.config.json")) satisfies Config;
