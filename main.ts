@@ -1,4 +1,4 @@
-import { instantiate,dev,build,start,clean } from "./lib/rs_lib.generated.js";
+import { instantiate,build } from "./lib/rs_lib.generated.js";
 import { getPermissions,config } from "./proton-xd.config.ts";
 
 await instantiate();
@@ -10,7 +10,7 @@ console.log(permissions);
 
 switch(Deno.args[0]) {
   case "dev":case "d":
-    dev(permissions);
+    dev();
   break;
   case "build":case "b":
     build(permissions);
@@ -21,4 +21,24 @@ switch(Deno.args[0]) {
   case "clean":case "c":
     clean();
   break;
+}
+
+
+function dev() {
+  const cmd=new Deno.Command("deno",{
+    args: ["run",...permissions,"proton-xd/src/main.ts"]
+  }).outputSync();
+  
+  if(cmd.stderr)
+  Deno.stderr.writeSync(cmd.stderr);
+  else
+  Deno.stdout.writeSync(cmd.stdout);
+}
+
+function start() {
+  //todo;
+}
+
+function clean() {
+  //todo;
 }
