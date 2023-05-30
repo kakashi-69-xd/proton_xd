@@ -11,8 +11,27 @@ args.unshift("run");
 args.push("proton-xd/src/main.ts");
 
 
+const build=()=> rustBuild(args.with(0,"compile"));
+const dev=()=>cmd("deno",args);
+const start=()=> {
+  try {
+    cmd(`build/${cfg.name}`);
+  } catch {
+    build();
+    start();
+  }
+};
+const cmd=(path: string,args?: string[])=> {
+  const cmd=new Deno.Command(path,{
+    args: args
+  }).outputSync();
+  
+  if(cmd.success)
+  Deno.stderr.writeSync(cmd.stderr);
+  else
+  throw new Error("failed");
+};
 
-const build=()=> rustBuild(args.with(0,"compile"));;
 
 
 switch(Deno.args[0]) {// miss rusts match case
@@ -33,27 +52,5 @@ switch(Deno.args[0]) {// miss rusts match case
 }
 
 
-function dev() {
-  cmd("deno",args);
-}
-
-function start() {
-  try {
-    cmd(`build/${cfg.name}`);
-  } catch {
-    build();
-    start();
-  }
-}
 
 
-function cmd(path: string,args?: string[]) {
-  const cmd=new Deno.Command(path,{
-    args: args
-  }).outputSync();
-  
-  if(cmd.success)
-  Deno.stderr.writeSync(cmd.stderr);
-  else
-  throw new Error("failed");
-}
