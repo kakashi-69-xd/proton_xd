@@ -2,41 +2,39 @@ import { instantiate,build } from "./lib/rs_lib.generated.js";
 import { getPermissions,config } from "./proton-xd.config.ts";
 
 await instantiate();
-const permissions: string[]=(await getPermissions(await config()));
+const args: string[]=(await getPermissions(await config()));
 
-console.log(permissions);
-
-
+args.unshift("run");
+args.push("proton-xd/src/main.ts");
 
 switch(Deno.args[0]) {
   case "dev":case "d":
     dev();
   break;
   case "build":case "b":
-    build(permissions);
+    build(args.with(0,"compile"));
   break;
   case "start":case "s":
     start();
   break;
   case "clean":case "c":
-    clean();
+    Deno.removeSync("build",{
+      recursive: true
+    });
   break;
 }
 
 
 function dev() {
-  cmd("deno",["run",...permissions,"proton-xd/src/main.ts"]);
+  cmd("deno",args);
 }
 
 function start() {
-  
+  //todo;
 }
 
-function clean() {
-  Deno.removeSync("build");
-}
 
-function cmd(path: string,args: string[]) {
+async function cmd(path: string,args: string[]) {
   const cmd=new Deno.Command(path,{
     args: args
   }).outputSync();
