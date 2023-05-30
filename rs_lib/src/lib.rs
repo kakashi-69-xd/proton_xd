@@ -2,41 +2,22 @@ use wasm_bindgen::{
   prelude::wasm_bindgen,
   JsValue
 };
-
-
-#[wasm_bindgen]
-pub fn dev(perms: JsValue) {
-  deno("run",perms,"proton-xd/src/main.ts",false);
-}
-
 #[wasm_bindgen]
 pub fn build(perms: JsValue) {
-  deno("compile",perms,"proton-xd/src/main.ts",true)
+  deno("compile",perms,"proton-xd/src/main.ts")
 }
 
-#[wasm_bindgen]
-pub fn start() {
-  todo!()
-}
+fn deno(_action: &str,permissions: JsValue,_main: &str) {
+  let mut _perms: Vec<String>=permissions.into_serde().unwrap();
 
-#[wasm_bindgen]
-pub fn clean() {
-  todo!()
-}
-
-
-fn deno(action: &str,permissions: JsValue,main: &str,strict: bool) {
-  let mut perms: Vec<String>=permissions.into_serde().unwrap();
-  if strict {perms.push(String::from("--no-prompt"))}
-
-  wasm_bus_process::process::Command::new("deno")
-  .arg(action)
-  .args(perms)
-  .arg(main)
-  .spawn()
-  .unwrap()
-  .wait()
-  .unwrap();
-
-
+  
+  // wasm_bus_process::process::Command::new("deno")
+  // .arg(action)
+  // .args(perms)
+  // .arg(main)
+  // .arg("--no-prompt")
+  // .spawn()
+  // .unwrap()
+  // .wait()
+  // .unwrap();
 }
