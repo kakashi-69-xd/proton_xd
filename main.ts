@@ -34,7 +34,7 @@ function start() {
 }
 
 
-async function cmd(path: string,args: string[]) {
+function cmd(path: string,args: string[]) {
   const cmd=new Deno.Command(path,{
     args: args
   }).outputSync();
