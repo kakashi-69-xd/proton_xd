@@ -1,9 +1,7 @@
-import { instantiate,build as rustBuild } from "./lib/rs_lib.generated.js";
 import { getPermissions,config } from "./proton-xd.config.ts";
 
 
 
-await instantiate();
 const cfg=await config();
 const args: string[]=(await getPermissions(cfg));
 
@@ -11,7 +9,11 @@ args.unshift("run");
 args.push("proton-xd/src/main.ts");
 
 
-const build=()=> rustBuild(args.with(0,"compile").concat(Deno.args.slice(1)));
+const build=()=> cmd(
+  "deno",
+  args.with(0,"compile").concat("-o",`build/${cfg.name}`,Deno.args.slice(1))
+);
+
 const dev=()=>cmd("deno",args);
 const start=()=> {
   try {
