@@ -11,7 +11,7 @@ args.unshift("run");
 args.push("proton-xd/src/main.ts");
 
 
-const build=()=> rustBuild(args.with(0,"compile"));
+const build=()=> rustBuild(args.with(0,"compile").concat(Deno.args.slice(1)));
 const dev=()=>cmd("deno",args);
 const start=()=> {
   try {
