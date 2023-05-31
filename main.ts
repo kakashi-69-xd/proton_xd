@@ -6,7 +6,7 @@ const cfg=await config();
 const args: string[]=(await getPermissions(cfg));
 
 args.unshift("run");
-args.push("proton-xd/src/main.ts");
+args.push(`proton-xd/src/main.${cfg.ext}`);
 
 
 const build=()=> cmd(
