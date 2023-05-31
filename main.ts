@@ -11,7 +11,7 @@ args.push("proton-xd/src/main.ts");
 
 const build=()=> cmd(
   "deno",
-  args.with(0,"compile").concat("-o",`build/${cfg.name}`,Deno.args.slice(1))
+  args.with(0,"compile").concat("-o",`build/main`,Deno.args.slice(1))
 );
 
 const dev=()=>cmd("deno",args);
